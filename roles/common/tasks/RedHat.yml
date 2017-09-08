@@ -1,0 +1,81 @@
+---
+- name: Check for EPEL key
+  stat:
+    path: "/var/tmp/{{ epel_rpm_key | basename }}"
+  register: epelkey
+  tags:
+    - Common
+    - Deployment
+
+- name: Download EPEL EPM key
+  get_url:
+    url: "{{ epel_rpm_key }}"
+    dest: "/var/tmp/{{ epel_rpm_key | basename }}"
+    mode: "0600"
+    checksum: "sha256:{{ epel_rpm_key_hash }}"
+    validate_certs: no
+  when: not epelkey.stat.exists
+  tags:
+    - Common
+    - Deployment
+
+- name: Install EPEL RPM
+  rpm_key:
+    key: "/var/tmp/{{ epel_rpm_key | basename }}"
+  tags:
+    - Common
+    - Deployment
+
+- name: Install Fedora EPEL
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-10.noarch.rpm"
+    state: present
+  tags:
+    - Common
+    - Deployment
+
+- name: Update Packages
+  package:
+    state: latest
+    name: '*'
+  tags:
+    - Common
+    - Deployment
+    - Update
+
+- name: Subscription
+  redhat_subscription:
+    autosubscribe: yes
+    username: "{{ redhat_subscription_username }}"
+    password: "{{ redhat_subscription_password }}"
+    force_register: yes
+  when: subscribe is defined
+  tags:
+    - Common
+    - Deployment
+
+- name: Enable Red Hat Repos
+  shell: "subscription-manager repos --enable {{ item }}"
+  with_items: "{{ redhat_rpm_repositories }}"
+  tags:
+    - Common
+    - Deployment
+
+- name: Get the current kernel release.
+  command: uname -r
+  changed_when: false
+  register: kernel_release
+  tags:
+    - Common
+    - Deployment
+
+- name: Install packages
+  yum:
+    name: "{{ item }}"
+    state: installed
+    update_cache: yes
+  with_items: "{{ redhat_rpm_packages }}"
+  ignore_errors: yes
+  tags:
+    - Common
+    - Deployment

@@ -1,0 +1,26 @@
+---
+- name: Update Packages
+  package:
+    state: latest
+    name: '*'
+  when: ansible_os_family == "RedHat" or ansible_os_family == "CentOS" or ansible_os_family == "Debian" or ansible_os_family
+  tags:
+    - Update
+
+- name: Synchronize Layman
+  layman:
+    name: ALL
+    state: updated
+  when: ansible_os_family == "Gentoo"
+  tags:
+    - Update
+
+- name: Update packages
+  portage:
+    package: '@world'
+    keepgoing: yes
+    sync: yes
+    update: yes
+  when: ansible_os_family == "Gentoo"
+  tags:
+    - Update

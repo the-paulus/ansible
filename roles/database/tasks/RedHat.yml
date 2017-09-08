@@ -1,0 +1,15 @@
+---
+- name: Install MariaDB
+  package:
+    state: installed
+    name: "{{ item }}"
+  with_items:
+    - mariadb
+    - mariadb-server
+    - mariadb-libs
+    - MySQL-python
+    - perl-DBD-MySQL
+  tags:
+    - Database
+    - Deployment
+  register: mariadb_install_packages

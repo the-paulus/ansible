@@ -1,0 +1,34 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: the-paulus
+  description: MariaDB server setup and configuration for RHEL/CentOS, Debian/Ubuntu, Archlinux, and Gentoo.
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.0
+  platforms:
+    - name: EL
+      versions:
+      - 7
+    - name: Ubuntu
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+    - name: Archlinux
+      versions:
+      - all
+    - name: Gentoo
+      versions:
+        - all
+  galaxy_tags:
+    - archlinux
+    - centos
+    - database
+    - debian
+    - gentoo
+    - mariadb
+    - rhel
+    - redhat
+    - ubuntu

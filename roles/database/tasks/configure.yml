@@ -1,0 +1,106 @@
+---
+- name: Copy my.cnf global MariaDB configuration.
+  template:
+    src: my.cnf.j2
+    dest: "/etc/my.cnf"
+    owner: root
+    group: root
+    mode: 0644
+    force: "{{ overwrite_global_mycnf }}"
+  notify: restart mariadb
+  tags:
+    - Database
+    - Deployment
+
+- name: Verify MariaDB include directory exists.
+  file:
+    path: "/etc/my.cnf.d"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: mariadb_config_include_files | length
+  tags:
+    - Database
+    - Deployment
+
+- name: Copy my.cnf override files into include directory.
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/my.cnf.d/{{ item.src | basename }}"
+    owner: root
+    group: root
+    mode: 0644
+    force: "{{ item.force | default(False) }}"
+  with_items: "{{ mariadb_config_include_files }}"
+  notify: restart mariadb
+  tags:
+    - Database
+    - Deployment
+
+- name: Restore my.cnf file contexts
+  shell: "restorecon -R {{ item }}"
+  args:
+    chdir: "/etc"
+  with_items:
+    - my.cnf
+    - my.cnf.d
+  tags:
+    - Database
+    - Deployment
+
+- name: Create slow query log file (if configured).
+  command: "touch {{ mariadb_slow_query_log_file }}"
+  args:
+    creates: "{{ mariadb_slow_query_log_file }}"
+    warn: no
+  when: mariadb_slow_query_log_enabled == "yes"
+
+- name: Set ownership of slow query log.
+  file:
+    path: "{{ mariadb_slow_query_log_file }}"
+    group: root
+    seuser: system_u
+    serole: object_r
+    force: yes
+    state: file
+    mode: "0640"
+    owner: root
+    setype: mysqld_log_t
+  when: mariadb_slow_query_log_enabled == "yes"
+
+- name: Create error log file (if configured).
+  command: "touch {{ mariadb_log_error }}"
+  args:
+    creates: "{{ mariadb_log_error }}"
+    warn: no
+  when: mariadb_log_error != ""
+
+- name: Set ownership of error log.
+  file:
+    path: "{{ mariadb_log_error }}"
+    group: root
+    seuser: system_u
+    serole: object_r
+    force: yes
+    state: file
+    mode: "0640"
+    owner: root
+    setype: mysqld_log_t
+  when: mariadb_log_error != ""
+
+- name: Create datadir if it does not exist
+  file:
+    path: "{{ mariadb_datadir }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    mode:  0755
+    setype: mysqld_db_t
+
+- name: Ensure MariaDB is started and enabled on boot.
+  service:
+    name: mariadb
+    state: started
+    enabled: "{{ mariadb_enabled_on_startup }}"
+  register: mariadb_service_configuration

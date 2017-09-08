@@ -1,0 +1,9 @@
+---
+- include: "{{ ansible_distribution }}.yml"
+  static: no
+
+- include: configure.yml
+- include: secure-installation.yml
+- include: databases.yml
+- include: users.yml
+- include: replication.yml

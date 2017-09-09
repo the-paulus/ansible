@@ -1,4 +1,8 @@
 ---
+
+- name: Include variables for distribution
+  include_vars: "{{ ansible_distribution }}.yml"
+
 - name: Copy my.cnf global MariaDB configuration.
   template:
     src: my.cnf.j2
@@ -55,7 +59,7 @@
   args:
     creates: "{{ mariadb_slow_query_log_file }}"
     warn: no
-  when: mariadb_slow_query_log_enabled == "yes"
+  when: mariadb_slow_query_log_enabled == 'yes'
 
 - name: Set ownership of slow query log.
   file:
@@ -65,7 +69,7 @@
     state: file
     mode: "0640"
     owner: root
-  when: mariadb_slow_query_log_enabled == "yes"
+  when: mariadb_slow_query_log_enabled == 'yes'
 
 - name: Create error log file (if configured).
   command: "touch {{ mariadb_log_error }}"

@@ -1,6 +1,6 @@
 ---
 - name: Restart database service
   service:
-    name: mariadb
+    name: "{{ database_service_name }}"
     state: restarted
     sleep: 5

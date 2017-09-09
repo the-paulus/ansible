@@ -1,0 +1,17 @@
+---
+- name: Install dependencies
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - libselinux-python
+    - cronie
+    - gzip
+    - python-boto
+    - s3cmd
+
+- name: Install duplicity
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - duplicity
+    - duply

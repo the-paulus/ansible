@@ -6,3 +6,4 @@ mariadb_log_error: /var/log/mariadb/error.log
 mariadb_syslog_tag: mariadb
 mariadb_pid_file: /var/run/mariadb/mariadb.pid
 mariadb_socket: /var/lib/mysql/mysql.sock
+database_service_name: mariadb

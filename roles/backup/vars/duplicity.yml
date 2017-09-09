@@ -1,0 +1,58 @@
+---
+enable_cron: yes
+
+config_directory: /etc/duply
+work_directory: /var/duply
+temp_directory: /tmp
+
+log_directory: /var/log/duply
+rotate_logs: yes
+
+# Ex. backup_profile:
+#       - name: www               # required param
+#         schedule: 0 0 * * 0     # if defined enabled cronjob
+#         source: /var/www
+#         max_age: 10D
+#         target: s3://my.bucket/www
+#         exclude:
+#           - *.pyc
+# Target syntax is
+#   scheme://[user:password@]host[:port]/[/]path
+# for the s3 user/password are AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY
+# Examples:
+#   file://[/absolute_]path
+#   ftp[s]://user[:password]@other.host[:port]/some_dir
+#   hsi://user[:password]@other.host/some_dir
+#   cf+http://container_name
+#   imap[s]://user[:password]@host.com[/from_address_prefix]
+#   rsync://user[:password]@other.host[:port]::/module/some_dir
+#   rsync://user@other.host[:port]/relative_path
+#   rsync://user@other.host[:port]//absolute_path
+#   s3://[user:password]@host/bucket_name[/prefix]
+#   s3+http://[user:password]@bucket_name[/prefix]
+#   ssh://user[:password]@other.host[:port]/some_dir
+#   tahoe://alias/directory
+#   webdav[s]://user[:password]@other.host/some_dir
+backup_target: 'file:///var/backup'
+backup_profiles:
+  - name: home
+    schedule: 0 0 * * 0
+    source: /home
+    max_age: 7D
+    target: "ssh://{{ backup_user }}@{{ backup_host }}{{ backup_directory }}
+    exclude:
+      - *.share/local/Trash
+
+# Time frame for old backups to keep, Used for the "purge" command.
+# see duplicity man page, chapter TIME_FORMATS)
+backup_max_age: 1M
+# Number of full backups to keep. Used for the "purge-full" command.
+# See duplicity man page, action "remove-all-but-n-full".
+backup_max_full_backups: 1
+# forces a full backup if last full backup reaches a specified age
+backup_full_max_age: 1M
+# set the size of backup chunks to VOLSIZE MB instead of the default 25MB.
+backup_volsize: 50
+# verbosity of output (error 0, warning 1-2, notice 3-4, info 5-8, debug 9)
+backup_verbosity: 3
+#backup_exclude: [] # List of filemasks to exlude

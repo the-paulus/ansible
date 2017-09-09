@@ -20,15 +20,16 @@ overwrite_global_mycnf: yes
 mariadb_port: "3306"
 mariadb_bind_address: '0.0.0.0'
 mariadb_skip_name_resolve: no
-mariadb_datadir: /var/lib/mysql
+mariadb_datadir: ""
 mariadb_sql_mode: 'SQL_MODE'
-
+mariadb_pid_file: ""
+mariadb_socket: ""
 # Slow query log settings.
 mariadb_slow_query_log_enabled: yes
-mariadb_slow_query_log_file: /var/log/mariadb/slow_query.log
+mariadb_slow_query_log_file: ""
 mariadb_slow_query_time: "2"
 
-# Memory settings (default values optimized ~512MB RAM).
+# Memory settings optimized for 512MB RAM.
 mariadb_key_buffer_size: "256M"
 mariadb_max_allowed_packet: "64M"
 mariadb_table_open_cache: "256"
@@ -71,9 +72,9 @@ mariadb_innodb_file_format: "barracuda"
 mariadb_mysqldump_max_allowed_packet: "64M"
 
 # Logging settings.
-mariadb_log: /var/log/mariadb/mariadb.log
+mariadb_log: ""
 # The following variables have a default value depending on operating system.
-mariadb_log_error: /var/log/mariadb/error.log
+mariadb_log_error: ""
 mariadb_syslog_tag: mysql
 
 mariadb_config_include_files: []

@@ -1,0 +1,8 @@
+---
+- name: Install MariaDB
+  portage:
+    sync: yes
+    keepgoing: yes
+    package: dev-db/mariadb
+    quiet: yes
+    state: present # State of the package atom

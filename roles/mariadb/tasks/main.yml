@@ -1,0 +1,15 @@
+---
+- shell: systemctl list-units --type=service | grep MySQL | sed 's/.*\(mysqld\|mariadb\).*/\1/'
+  register: mariadb_service_name
+
+- set_fact:
+    mariadb_service_name: "{{ mariadb_service_name.stdout }}"
+
+- include: "{{ ansible_distribution }}.yml"
+  static: no
+
+- include: configure.yml
+- include: secure-installation.yml
+- include: databases.yml
+- include: users.yml
+- include: replication.yml

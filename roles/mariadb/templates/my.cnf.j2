@@ -96,7 +96,7 @@ lower_case_table_names = {{ mariadb_lower_case_table_names }}
 event_scheduler = {{ mariadb_event_scheduler_state }}
 
 # InnoDB settings.
-{% if mariadb_supports_innodb_large_prefix %}
+{% if mariadb_innodb_large_prefix %}
 innodb_large_prefix = {{ mariadb_innodb_large_prefix }}
 innodb_file_format = {{ mariadb_innodb_file_format }}
 {% endif %}

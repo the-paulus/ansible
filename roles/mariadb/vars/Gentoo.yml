@@ -1,0 +1,8 @@
+---
+mariadb_datadir: /var/lib/mysql
+mariadb_slow_query_log_file: /var/log/mysql/slow_query.log
+mariadb_log: /var/log/mysql/mysql.log
+mariadb_log_error: /var/log/mysql/mysql.err
+mariadb_syslog_tag: mysql
+mariadb_pid_file: /var/run/mysqld/mysqld.pid
+mariadb_socket: /var/lib/mysql/mysql.sock

@@ -1,0 +1,10 @@
+---
+docker_tls_enable: False
+docker_tls_bind: '0.0.0.0'
+docker_tls_port: 2376
+docker_tls_basepath: '/etc/docker'
+docker_tls_keys: []
+
+docker_opts: ''
+
+docker_minimal_kernel_version: "3.10"

@@ -1,0 +1,23 @@
+---
+- include_vars: "vars/{{ ansible_distribution }}.yml"
+
+- name: Check kernel version for docker support
+  fail:
+    msg: "Kernel version {{ ansible_kernel }} does not meet minimum version ({{ docker_minimal_kernel_version }})."
+  when: "ansible_kernel | version_compare(docker_minimal_kernel_version, '<')"
+  tags:
+    - Deployment
+    - Docker
+
+- include: "{{ ansible_distribution }}.yml"
+- include: configure.yml
+
+- name: Enable Docker
+  service:
+    name: docker
+    enabled: yes
+    state: started
+    sleep: 5
+  tags:
+    - Deployment
+    - Docker

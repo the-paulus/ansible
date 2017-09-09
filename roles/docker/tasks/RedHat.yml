@@ -1,0 +1,11 @@
+---
+- name: Install docker
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ docker_packages }}"
+  tags:
+    - Deployment
+    - Docker
+    - RedHat

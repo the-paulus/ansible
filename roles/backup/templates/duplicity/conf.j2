@@ -22,11 +22,11 @@ GPG_OPTS='{{item.gpg_opts|default(backup_gpg_opts)}}'
 
 TARGET='{{item.target|default(backup_target)}}'
 
-{% if item.target_user|default(backup_target_user) %}
-TARGET_USER='{{item.target_user|default(backup_target_user)}}'
+{% if item.target_user|default(backup_user) %}
+TARGET_USER='{{item.target_user|default(backup_user)}}'
 {% endif %}
-{% if item.target_pass|default(backup_target_pass) %}
-TARGET_PASS='{{item.target_pass|default(backup_target_pass)}}'
+{% if item.target_pass|default(backup_user_password) %}
+TARGET_PASS='{{item.target_pass|default(backup_user_password)}}'
 {% endif %}
 
 {% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') %}
@@ -71,7 +71,7 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
 
 # temporary file space. at least the size of the biggest file in backup
 # for a successful restoration process. (default is '/tmp', if not set)
-TEMP_DIR={{ backup_temp_dir }}
+TEMP_DIR={{ temp_directory }}
 
 # more duplicity command line options can be added in the following way
 # don't forget to leave a separating space char at the end

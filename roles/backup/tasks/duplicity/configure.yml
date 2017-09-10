@@ -1,19 +1,29 @@
 ---
+- name: Backup Configuration - Ensure backup group exists
+  group:
+    name: "{{ backup_user_group }}"
+    state: present
+    system: yes
+  tags:
+    - Backup
+    - Deployment
+    - Duplicity
+
 - name: Backup Configuration - Ensure backup user exists
   user:
     name: "{{ backup_user }}"
+    groups: wheel
     generate_ssh_key: yes
-    update_password: always # C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
-    ssh_key_type: rsa # Optionally specify the type of SSH key to generate. Available SSH key types will depend on implementation present on target host.
+    update_password: always
+    ssh_key_type: rsa
     password: "{{ backup_user_password }}"
     ssh_key_bits: 4096
     append: no
     group: "{{ backup_user_group }}"
-    createhome: no
+    createhome: yes
     system: yes
     state: present
     ssh_key_file: .ssh/id_rsa
-    login_class: # Optionally sets the user's login class for FreeBSD, OpenBSD and NetBSD systems.
     shell: /bin/nologin
   tags:
     - Backup
@@ -25,7 +35,7 @@
     path: "{{ item }}"
     state: directory
     owner: "{{ backup_user }}"
-    group: "{{ backup_group }}"
+    group: "{{ backup_user_group }}"
   with_items:
     - "{{ config_directory }}"
     - "{{ work_directory }}"

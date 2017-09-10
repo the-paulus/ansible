@@ -1,5 +1,5 @@
 ---
-enable_cron: yes
+cron_enable: yes
 
 config_directory: /etc/duply
 work_directory: /var/duply
@@ -33,21 +33,21 @@ rotate_logs: yes
 #   ssh://user[:password]@other.host[:port]/some_dir
 #   tahoe://alias/directory
 #   webdav[s]://user[:password]@other.host/some_dir
-backup_target: 'file:///var/backup'
+backup_target: "file:///var/backup"
 backup_profiles:
   - name: home
-    schedule: 0 0 * * 0
+    schedule: "0 0 * * 0"
     source: /home
     max_age: 7D
-    target: "ssh://{{ backup_user }}@{{ backup_host }}{{ backup_directory }}
+    target: "ssh://{{ backup_user }}@{{ backup_host }}{{ backup_directory }}"
     exclude:
-      - *.share/local/Trash
+      - "*.share/local/Trash"
 
-# Time frame for old backups to keep, Used for the "purge" command.
+# Time frame for old backups to keep, Used for the 'purge' command.
 # see duplicity man page, chapter TIME_FORMATS)
 backup_max_age: 1M
-# Number of full backups to keep. Used for the "purge-full" command.
-# See duplicity man page, action "remove-all-but-n-full".
+# Number of full backups to keep. Used for the 'purge-full' command.
+# See duplicity man page, action 'remove-all-but-n-full'.
 backup_max_full_backups: 1
 # forces a full backup if last full backup reaches a specified age
 backup_full_max_age: 1M

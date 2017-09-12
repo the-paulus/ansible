@@ -1,3 +1,6 @@
 ---
 - include: "{{ ansible_distribution }}.yml"
   static: no
+
+- include: "configue.yml"
+  static: no

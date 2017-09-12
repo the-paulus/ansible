@@ -1,0 +1,10 @@
+---
+- name: Enable s3 use flag
+  shell: euse -E -p app-backup/duplicity s3
+
+- name: Install duplicity and duply
+  portage:
+    sync: yes
+    package: "duply"
+    quiet: yes
+    state: present

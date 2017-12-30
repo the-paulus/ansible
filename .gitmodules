@@ -1,3 +1,6 @@
 [submodule "roles/the-paulus.redhat-subscription"]
 	path = roles/the-paulus.redhat-subscription
 	url = git@github.com:the-paulus/redhat-subscription.git
+[submodule "roles/the-paulus.common-linux-commands"]
+	path = roles/the-paulus.common-linux-commands
+	url = git@github.com:the-paulus/common-linux-commands.git

@@ -7,3 +7,6 @@
 [submodule "roles/the-paulus.apache"]
 	path = roles/the-paulus.apache
 	url = git@github.com:the-paulus/ansible-apache.git
+[submodule "roles/the-paulus.extra-repositories"]
+	path = roles/the-paulus.extra-repositories
+	url = git@github.com:the-paulus/ansible-extra-repositories.git

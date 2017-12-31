@@ -4,3 +4,6 @@
 [submodule "roles/the-paulus.common-linux-commands"]
 	path = roles/the-paulus.common-linux-commands
 	url = git@github.com:the-paulus/common-linux-commands.git
+[submodule "roles/the-paulus.apache"]
+	path = roles/the-paulus.apache
+	url = git@github.com:the-paulus/ansible-apache.git

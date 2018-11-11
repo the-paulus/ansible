@@ -1,0 +1,42 @@
+---
+- name: "Nethserver Play Book"
+  hosts: skinner.paulslinuxbox.net
+  tasks:
+    - name: "Set hostname"
+      shell: "systemctl set-hostname skinner.paulslinuxbox.net"
+
+    - name: "Update system"
+      yum:
+        name: '*'
+        state: latest
+
+    - name: "Reboot"
+
+    - name: "Copy SSH Key"
+
+    - name: "Install ldap"
+      yum:
+        name: ""
+        state: latest
+      with_items:
+        - nethserver-directory
+        - nethserver-firewall-base-ui
+        - nethserver-nextcloud
+
+    # https://www.digitalocean.com/community/tutorials/how-to-change-account-passwords-on-an-openldap-server
+    - name: "set ldap admin password"
+
+    - name: "Change Nextcloud admin user"
+      shell: "sudo -u apache /opt/rh/rh-php71/root/usr/bin/php /usr/share/nextcloud/occ user:"
+
+    - name: "Enable auditing/Logging"
+      shell: ""
+
+    - name: "Download and enable File access control"
+
+    - name: "Enable encryption"
+      shell: "sudo -u apache /opt/rh/rh-php71/root/usr/bin/php /usr/share/nextcloud/occ {{ item }}"
+      with_items:
+        - "app:enable encryption"
+        - "encryption:enable"
+        - "encryption:encrypt-all"

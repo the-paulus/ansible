@@ -1,15 +1,47 @@
+skinner.paulslinuxbox.net ansible_host=10.0.0.1
+kersh.paulslinuxbox.net ansible_host=10.0.0.2
+scully.paulslinuxbox.net ansible_host=10.0.1.1
+mulder.paulslinuxbox.net ansible_host=10.0.2.1
+gizmo.paulslinuxbox.net ansible_host=10.0.2.2
+doggett.paulslinuxbox.net ansible_host=10.0.2.3
+reeys.paulslinuxbox.net ansible_host=10.0.2.4
+
 [DatabaseServers]
+mulder.paulslinuxbox.net
+scully.paulslinuxbox.net
+
+[DDWRT]
 
 [DebianBased]
+doggett.paulslinuxbox.net
+mulder.paulslinuxbox.net
+
+[Desktops]
+doggett.paulslinuxbox.net
+mulder.paulslinuxbox.net
+reyes.paulslinuxbox.net
+
+[Development]
+gizmo.paulslinuxbox.net
+mulder.paulslinuxbox.net
 
 [Gentoo]
+scully.paulslinuxbox.net
+reyes.paulslinuxbox.net
+
+[Networking]
+kersh.paulslinuxbox.net
+skinner.paulslinuxbox.net
+
+[OpenWRT]
+kersh.paulslinuxbox.net
 
 [RedHatBased]
+skinner.paulslinuxbox.net
+
+[Servers]
+scully.paulslinuxbox.net
 
 [WebServers]
-
-[WebSite-Drupal]
-
-[Website-Laravel]
-
-[Website-Wordpress]
+mulder.paulslinuxbox.net
+scully.paulslinuxbox.net

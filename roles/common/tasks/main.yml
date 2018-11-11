@@ -1,20 +1,6 @@
 ---
-- name: Dump Variables
-  template:
-    src: "dump_vars.j2"
-    dest: "/tmp/ansible_variables"
-  tags:
-    - Information
+- name: "Include common tasks for {{ ansible_distirbution }}"
+  include_tasks: "{{ ansible_distirbution }}.yml"
 
-- name: Fetch Variables
-  fetch:
-    src: "/tmp/ansible_variables"
-    dest: "remote_files/{{ inventory_hostname }}"
-  tags:
-    - Information
-
-- include: "{{ ansible_distribution }}.yml"
-  when: update is not defined
-  
 - include: "update.yml"
   when: update is defined

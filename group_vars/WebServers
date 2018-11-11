@@ -1,0 +1,57 @@
+---
+apache_vhost_base_directory: /var/www/vhosts
+
+apache_vhost_directories:
+  - backups
+  - httpdocs
+  - logs
+  - private
+  - subdomains
+
+apache_custom_log_formats:
+  - name: common
+    format: "%h %l %u %t \"%r\" %>s %b"
+    name:
+    format: "%h   %a  %v:%p  %U  %q"
+
+apache_vhosts:
+  - owner: apache
+    group: apache
+    server_name: paulusworld.com
+    server_admin: webmaster@paulusworld.com
+    server_aliases:
+      - www.paulusworld.com
+    custom_logs:
+      - name: "access_log"
+        format: "common"
+    additional_directories:
+      - directory_path: "/var/www/vhosts/paulusworld.com/httpdocs"
+        options:
+          - AllowOverride All
+          - Options -Indexes +FollowSymLinks
+          - Require all granted
+    custom_log:
+    extra_config_options:
+      - RewriteEngine on
+      - RewriteCond %{SERVER_NAME} != www.paulusworld.com
+      - RewriteRule ^ https://www.paulusworld.com%{REQUEST_URI} [END,NE,R=permanent]
+  - owner: apache
+    group: apache
+    server_name: paulus.io
+    server_admin: webmaster@paulus.io
+    server_aliases:
+      - www.paulus.io
+    custom_logs:
+      - name: "access_log"
+        format: "common"
+    additional_directories:
+      - directory_path: "/var/www/vhosts/paulus.io/httpdocs"
+        options:
+          - AllowOverride All
+          - Options -Indexes +FollowSymLinks
+          - Require all granted
+    custom_log:
+    extra_config_options:
+      - RewriteEngine on
+      - RewriteCond %{SERVER_NAME} != www.paulus.io
+      - RewriteRule ^ https://www.paulus.io%{REQUEST_URI} [END,NE,R=permanent]

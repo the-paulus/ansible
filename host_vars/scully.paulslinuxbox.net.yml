@@ -1,0 +1,74 @@
+---
+common_linux_commands_extra:
+  - cups
+  - jpeg
+  - ldap
+  - lzma
+  - mysql
+  - pcre16
+  - perl
+  - python
+  - threads
+  - X
+  - xml
+
+common_linux_commands_gentoo_extra:
+  - name: net-misc/bridge-utils
+    useflags: []
+  - name: sys-apps/usertmode-utilities
+    useflags:
+      - fuse
+  - name: app-emulation/virtualbox
+    useflags:
+      - alsa
+      - headless
+      - lvm
+      - java
+      - python
+      - vboxwebsrv
+      - vnc
+  - name: app-emulation/virtualbox-additions
+    useflags: []
+  - name: app-emulation/virtualbox-extpack-oracle
+    useflags: []
+
+
+common_linux_commands_gentoo_global_useflags_extra: []
+
+gentoo_accept_licenses: "PUEL"
+
+redhat_subscription_username: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          66616162313134646135353838336534373231346564326339663033343939383661343633303062
+          3137653930616364626233386532623730653462386632360a316435616466633330653733376632
+          33356562356235373332396439633233323033393161383966643230666536363831343038333834
+          3931386164303332340a666337653230393134393234393634393834636431636133353033623132
+          3532
+redhat_subscription_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          39333037333338613238643165626562336430323465633937316336653664373866373062633531
+          6139643232626536623139363534633964343861633530380a383934356337316664626265336533
+          39636532616638663737363663633537656463653938613835373534656564616135643966616435
+          6131633636363237310a343764373763656139656234626565613963383630666365616163303530
+          6165
+redhat_subscription_respositories:
+  - rhel-7-server-eus-rh-common-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-openstack-10-tools-rpms
+  - rhel-7-server-eus-supplementary-rpms
+  - rhel-server-rhscl-7-rpms
+  - rhel-7-server-rhn-tools-rpms
+  - rhel-atomic-7-cdk-3.0-rpms
+  - rhel-7-server-thirdparty-oracle-java-rpms
+  - rhel-7-server-eus-satellite-tools-6.2-rpms
+  - rhel-7-server-dotnet-rpms
+  - rhel-7-server-eus-rhn-tools-source-rpms
+  - rhel-7-server-v2vwin-1-rpms
+  - rhel-7-server-openstack-11-tools-rpms
+  - rhel-7-server-eus-optional-rpms
+  - rhel-7-server-rh-common-rpms
+  - rhel-7-server-satellite-tools-6.1-rpms
+  - rhel-atomic-7-cdk-2.2-rpms
+  - rhel-server-rhscl-7-eus-rpms
+  - rhel-7-server-openstack-8-tools-rpms
+  - rhel-7-server-optional-rpms

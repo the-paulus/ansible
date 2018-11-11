@@ -1,0 +1,8 @@
+---
+system_services:
+  - name: smartd
+    enabled: yes
+    state: started
+  - name: syslog-ng
+    enabled: yes
+    state: started

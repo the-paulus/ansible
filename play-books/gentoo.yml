@@ -1,0 +1,11 @@
+---
+- name: "Gentoo Play Book"
+  hosts: Gentoo
+  tasks:
+    - name: "Accept Licenses"
+      lineinfile:
+        backup: yes
+        insertafter: '^MAKEOPTS.*'
+        regexp: '^ACCEPT_LICENSE=".*"'
+        line: '^ACCEPT_LICENSE="{{ gentoo_accept_licenses }}"'
+      when: gentoo_accept_licenses is defined

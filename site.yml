@@ -1,0 +1,22 @@
+---
+- name: Common
+  hosts: all
+  roles:
+    - { role: the-paulus.redhat-subscription, when: ansible_distribution == "RedHat" }
+    - the-paulus.extra-repositories
+    - the-paulus.common-linux-commands
+    - the-paulus.smartmontools
+    - the-paulus.borg-backup
+  tasks:
+    - name: "Enable and Start or Stop and Disable Services"
+      service:
+        name: "{{ item.name }}"
+        enabled: "{{ item.enabled }}"
+        state: "{{ item.state }}"
+      with: system_services
+
+
+- name: Web Servers
+  hosts: WebServers
+  roles:
+    - the-paulus.apache

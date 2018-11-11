@@ -1,0 +1,18 @@
+---
+- name: Ansible Setup Play Book.
+  hosts: all
+  tasks:
+    - name: Create ansible user
+      user:
+        name: ansible
+        update_password: always
+        ssh_key_type: rsa
+        groups: wheel
+        home: /home/ansible
+        password: "$6$qs3wg3SxDPx4i1T0$S9KE8/VgjJsKN89fsYDW9Zt.MUF2VUT2tPp7UVLKBcyeEJGFW4YLk99YCw/jhkvsyGKNDBL9VWgefCBUHTuW21"
+        generate_ssh_key: yes
+        ssh_key_bits: 4096
+        createhome: yes
+        system: no
+        state: present
+        ssh_key_file: .ssh/id_rsa
